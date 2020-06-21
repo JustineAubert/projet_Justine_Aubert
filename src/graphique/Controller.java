@@ -1,29 +1,18 @@
 package graphique;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 import java.net.URL;
-//import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
 import com.interactivemesh.jfx.importer.ImportException;
 import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
-
 import application.Search;
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
@@ -33,14 +22,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point3D;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
-import javafx.scene.PointLight;
-import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBase;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -48,18 +33,14 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Sphere;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
-import jdk.nashorn.internal.runtime.FindProperty;
 
 import javafx.event.ActionEvent;
 
@@ -170,7 +151,7 @@ public class Controller implements Initializable {
 		// TODO Auto-generated method stub
 
 		try {
-
+           //servait pour avoir certaines valeurs affichées pour la vérification
 //			System.out.println(Search.getInstance().findByYear(1952));
 //			System.out.println(Search.getInstance().findByYearAndByLongAndLat(1881, "12", "154"));
 //			System.out.println(Search.getInstance().getTempMax());
@@ -196,7 +177,7 @@ public class Controller implements Initializable {
 
 			final Group root3D = new Group();
 			
-			// Load geometry
+			// Load earth
 			ObjModelImporter objImporter = new ObjModelImporter();
 			System.out.println("1");
 			URL modelUrl = this.getClass().getResource("Earth/earth.obj");
@@ -205,6 +186,7 @@ public class Controller implements Initializable {
 			MeshView[] meshViews = objImporter.getImport();
 			earth = new Group(meshViews);
 
+			//essaie pour le tutoriel permet de se reperer dans l espace 
 			Group citys = new Group();
 			displayTown(citys, "Brest", 48.447911f, -4.418539f);
 			displayTown(citys, "Marseille", 43.43f, 5.21f);
@@ -216,10 +198,19 @@ public class Controller implements Initializable {
 			displayTown(citys, "Seoul", 37.46f, 126.45f);
 
 			root3D.getChildren().addAll(citys);
-
+			
+			//commande pour les buttons play stop pause
 			play.addEventHandler(MouseEvent.MOUSE_CLICKED, this.startButton());
 			stop.addEventHandler(MouseEvent.MOUSE_CLICKED, this.stopButton());
 			pause.addEventHandler(MouseEvent.MOUSE_CLICKED, this.pauseButton());
+			
+			//la partie 2D n a pas ete achevee mais lorsque le bouton 2D est selectionne la spehe se nettoie comme voulu
+			deuxD.setOnAction(e -> {
+				if (deuxD.isSelected()) {
+					clearQuadriMesh();
+					clearHistoMesh();
+				}
+			});
 
 			quadri.setOnAction((e) -> {
 
@@ -275,9 +266,6 @@ public class Controller implements Initializable {
 			ambientLight.getScope().addAll(root3D);
 			root3D.getChildren().add(ambientLight);
 
-			
-			root3D.getChildren().add(groupeGraphique);
-			// Create scene
 			root3D.getChildren().add(earth);
 			
 
@@ -291,6 +279,7 @@ public class Controller implements Initializable {
 
 	}
 
+	
 	public static Cylinder createLine(Point3D origin, Point3D target, PhongMaterial color) {
 		Point3D yAxis = new Point3D(0, 1, 0);
 		Point3D diff = target.subtract(origin);
@@ -326,10 +315,6 @@ public class Controller implements Initializable {
 				Point3D topLeft = geoCoordTo3dCoord(lat + 2, lon - 2, 1.05f);
 				Point3D topRight = geoCoordTo3dCoord(lat + 2, lon + 2, 1.05f);
 
-
-				if (Float.isNaN(res)) {
-					AddQuadrilateral(parent, topRight, bottomRight, bottomLeft, topLeft, black);
-				}
 				if (res> 8f) {
 					AddQuadrilateral(parent, topRight, bottomRight, bottomLeft, topLeft, darkred);
 				} else if (res > 6f
@@ -377,11 +362,10 @@ public class Controller implements Initializable {
 						* java.lang.Math.cos(java.lang.Math.toRadians(lat_cor)) * radius);
 	}
 
+	//fonction qui dessine les histogrammes en creant des lignes entre les points
 	private void drawHisto(Group parent) {
 		Point3D origin = new Point3D(0, 0, 0);
-
 		int anneeCourante = (int) sliderA.getValue();
-		
 		
 		for (int lat = -88; lat < 90; lat = lat + 4) {
 
@@ -431,6 +415,7 @@ public class Controller implements Initializable {
 
 	}
 
+	//fonction qui ajoute les villes (tutoriel)
 	public void displayTown(Group parent, String name, float latitude, float longitude) {
 		Sphere sphere = new Sphere(0.01);
 		final PhongMaterial greenMaterial = new PhongMaterial();
@@ -448,6 +433,7 @@ public class Controller implements Initializable {
 		parent.getChildren().addAll(city);
 	}
 
+	
 	private void AddQuadrilateral(Group parent, Point3D topRight, Point3D bottomRight, Point3D bottomLeft,
 			Point3D topLeft, PhongMaterial red) {
 		final TriangleMesh triangleMesh = new TriangleMesh();
@@ -467,6 +453,7 @@ public class Controller implements Initializable {
 		earthMeshViews.add(meshView);
 	}
 
+	//arrete le slider et permet de reprendre apres la timeline ou on s etait arrete juste avant 
 	private EventHandler<Event> pauseButton() {
 		return event -> {
 			isStop = !isStop;
@@ -478,6 +465,7 @@ public class Controller implements Initializable {
 
 	}
 
+	//arret la timeline et remet le slider a 1880
 	private EventHandler<Event> stopButton() {
 		return event -> {
 			timeline.getKeyFrames().clear();
@@ -486,7 +474,8 @@ public class Controller implements Initializable {
 		};
 
 	}
-
+	
+//fonction pour le bouton play, qui met en route la timeline
 	public EventHandler<Event> startButton()
 	{
 
