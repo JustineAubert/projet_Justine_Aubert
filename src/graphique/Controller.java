@@ -81,8 +81,6 @@ public class Controller implements Initializable {
 	private static final float TEXTURE_LAT_OFFSET = -0.2f;
 	private static final float TEXTURE_LON_OFFSET = 2.8f;
 
-	private Group groupeGraphique = new Group();
-	
 	final Duration timeout = Duration.seconds(30);
 	ExecutorService executor = Executors.newSingleThreadExecutor();
 	private List<MeshView> earthMeshViews = new ArrayList<>();
@@ -92,18 +90,19 @@ public class Controller implements Initializable {
 
 	Group earth;
 	
+	//sert a supprimer les versions precedentes de visionnage
 	public void clearQuadriMesh() {
 		earth.getChildren().removeAll(earthMeshViews);
 		earthMeshViews.clear();
 	}
-
+	//sert a supprimer les versions precedentes de visionnage
 	public void clearHistoMesh() {
 		earth.getChildren().removeIf(
 				Cylinder.class::isInstance
 		);
 	}
-	
-	public void prepareColorForQuadri() {
+	//prepare les couleurs pour apres, autant pour histogramme que pour quadrillage
+	public void prepareColor() {
 		darkred = new PhongMaterial();
 		darkred.setDiffuseColor(Color.DARKRED);
 		darkred.setSpecularColor(Color.DARKRED);
@@ -161,7 +160,7 @@ public class Controller implements Initializable {
 			sliderA.setValue(Search.getInstance().getIndexOfYear().get(0));
 			textA.setText(String.valueOf(Search.getInstance().getIndexOfYear().get(0)));
 			textVitt.setText("1");
-			prepareColorForQuadri();
+			prepareColor();
 
 			final ToggleGroup option = new ToggleGroup();
 			deuxD.setToggleGroup(option);
@@ -212,6 +211,7 @@ public class Controller implements Initializable {
 				}
 			});
 
+			//permet de faire les actions qui dessinent les quadrillages en fonction de la valeur du slider, 
 			quadri.setOnAction((e) -> {
 
 					if (quadri.isSelected()) {
@@ -233,6 +233,8 @@ public class Controller implements Initializable {
 					}
 				});
 
+			//permet de faire les actions histogramme quand le button histo est selectionné va se mettre à jour en fonction de la valeur du slider
+			
 				histo.setOnAction((e) -> {
 
 					if (histo.isSelected()) {
