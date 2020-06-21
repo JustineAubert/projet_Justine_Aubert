@@ -6,12 +6,10 @@ import java.util.Map;
 
 public class Search {
 
+	//class pour ecrire les fonctions qui permettent de trouver un element par son annee, sa zonegeo... 
     private Map<Integer, List<Float>> yearsMap;
     private Map<String, List<Float>> geosMap;
     private List<Integer> indexOfYears;
-    //private List<Anomaly> anomalies;
-   // private List<Annee> annees;
-   // private List<ZoneGeographique> zones;
 
     private static Search search = null;
 

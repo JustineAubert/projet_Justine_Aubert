@@ -9,6 +9,8 @@ public class Parse {
 
     public static void getDataFromCSVFile(String csvFilePath) throws Exception {
 
+    	//creation des listes ou seront stockees les donnees au lancement de l application. 
+    	//ce peut etre des map ou des listes
         List<Annee> annees = new ArrayList<>();
         List<ZoneGeographique> zones = new ArrayList<>();
         Map<Integer, List<Float>> zoneAnneeMap = new HashMap<>();
@@ -16,12 +18,14 @@ public class Parse {
         FileReader file = new FileReader(csvFilePath);
         BufferedReader bufRead = new BufferedReader(file);
         
-        // Lit ligne 1
+        
+        // Lit ligne 1 on s'en sert pour stocker les annees dans une liste
         String line = bufRead.readLine();
         String[] donneesLigne = line.split(",");
         for (int i = 2; i < donneesLigne.length; i++) {
             String cellule = donneesLigne[i];
             cellule = cellule.replaceAll("\"", "");
+            //on a une classe annee, donc chaque element de la liste annee et compose de type annee
             Annee annee = new Annee(Integer.parseInt(cellule));
             annees.add(annee);
         }
@@ -35,7 +39,7 @@ public class Parse {
             donneesLigne = line.split(",");
             float lat = Float.parseFloat(donneesLigne[0]); // stocker donnee lat
             float lon = Float.parseFloat(donneesLigne[1]); // stocker donnee lon
-            ZoneGeographique zone = new ZoneGeographique(lat,lon);
+            ZoneGeographique zone = new ZoneGeographique(lat,lon);//on en cree une zone geo 
             line = bufRead.readLine();
             
             zones.add(zone);
