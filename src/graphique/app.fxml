@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphique.Controller">
+   <left>
+      <AnchorPane prefHeight="614.0" prefWidth="795.0" BorderPane.alignment="CENTER">
+         <children>
+            <RadioButton fx:id="quadri" layoutX="14.0" layoutY="59.0" mnemonicParsing="false" text="Quadrilatère (en 3D)" />
+            <RadioButton fx:id="histo" layoutX="14.0" layoutY="90.0" mnemonicParsing="false" text="Histogramme (en 3D)" />
+            <Button fx:id="play" layoutX="19.0" layoutY="567.0" mnemonicParsing="false" text="Play" />
+            <Button fx:id="pause" layoutX="72.0" layoutY="567.0" mnemonicParsing="false" text="Pause" />
+            <Button fx:id="stop" layoutX="134.0" layoutY="567.0" mnemonicParsing="false" text="Stop" />
+            <TextField fx:id="textVitt" layoutX="19.0" layoutY="452.0" prefHeight="25.0" prefWidth="38.0" />
+            <Text layoutX="67.0" layoutY="469.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Années/seconde" />
+            <Slider fx:id="sliderA" blockIncrement="20.0" layoutX="262.0" layoutY="550.0" majorTickUnit="20.0" max="2020.0" min="1880.0" prefHeight="14.0" prefWidth="503.0" showTickLabels="true" showTickMarks="true" />
+            <RadioButton fx:id="deuxD" layoutX="14.0" layoutY="31.0" mnemonicParsing="false" text="2D" />
+            <TextField fx:id="textA" layoutX="19.0" layoutY="520.0" prefHeight="25.0" prefWidth="60.0" />
+            <Text layoutX="82.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Année (entre 1880 et 2020)" wrappingWidth="76.314453125" />
+            <Pane fx:id="pane3D" layoutX="264.0" prefHeight="504.0" prefWidth="531.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#970300" height="20.0" layoutX="201.0" layoutY="372.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0600" height="20.0" layoutX="201.0" layoutY="392.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff8e1f" height="23.0" layoutX="201.0" layoutY="411.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="20.0" layoutX="201.0" layoutY="452.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e3ff1f" height="20.0" layoutX="201.0" layoutY="432.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4eff5d" height="20.0" layoutX="201.0" layoutY="472.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a9a13" height="20.0" layoutX="201.0" layoutY="492.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0084ff" height="20.0" layoutX="201.0" layoutY="510.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00376b" height="20.0" layoutX="201.0" layoutY="530.0" stroke="BLACK" strokeType="INSIDE" width="18.0" />
+            <Text layoutX="219.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" />
+            <Text layoutX="221.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8" />
+            <Text layoutX="221.0" layoutY="416.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6" />
+            <Text layoutX="221.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
+            <Text layoutX="221.0" layoutY="457.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
+            <Text layoutX="221.0" layoutY="477.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+            <Text layoutX="221.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-2" />
+            <Text layoutX="221.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-4" />
+            <Text layoutX="221.0" layoutY="535.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-6" />
+            <Text layoutX="221.0" layoutY="555.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-8" />
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>
