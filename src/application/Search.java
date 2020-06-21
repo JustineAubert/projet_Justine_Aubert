@@ -30,10 +30,6 @@ public class Search {
         this.geosMap = geosMap;
     }
     
-//    public void setAnomalies(List<Anomaly> anomalies) {
-//    	this.anomalies = anomalies;
-//    }
-
     public Map<Integer, List<Float>> getYearsMap() {
         return this.yearsMap;
     }
@@ -54,13 +50,7 @@ public class Search {
 
         return floatLatLongs.get(this.indexOfYears.indexOf(year));
     }
-    
-//    public List<Anomaly> findAnomaliesByYear(int year){
-//    	return this.anomalies.stream().filter(anomaly -> anomaly.annee.getAnnee()== year).collect(Collectors.toList());
-//    }
-    
-    
-
+   
     public List<Float> findByLongAndLat(String lat, String Long) {
         StringBuilder stringBuilder = new StringBuilder();
 
