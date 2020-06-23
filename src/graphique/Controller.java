@@ -282,7 +282,6 @@ public class Controller implements Initializable {
 			AmbientLight ambientLight = new AmbientLight(Color.WHITE);
 			ambientLight.getScope().addAll(root3D);
 			root3D.getChildren().add(ambientLight);
-
 			root3D.getChildren().add(earth);
 			
 
