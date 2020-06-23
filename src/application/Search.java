@@ -45,6 +45,7 @@ public class Search {
         return new ArrayList<>(1);
     }
 
+    //fonction pour trouver par annee latitude et longitude, on cherche en premier la zone geographique, , puis on cherche dans la map avec la clé de l annee
     public Float findByYearAndByLongAndLat(Integer year, String lat, String Long) {
         List<Float> floatLatLongs = findByLongAndLat(lat, Long);
 
