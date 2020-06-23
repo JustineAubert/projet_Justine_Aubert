@@ -150,7 +150,7 @@ public class Controller implements Initializable {
 		// TODO Auto-generated method stub
 
 		try {
-           //servait pour avoir certaines valeurs affichées pour la vérification
+           //servait pour avoir certaines valeurs affichees pour la verification
 //			System.out.println(Search.getInstance().findByYear(1952));
 //			System.out.println(Search.getInstance().findByYearAndByLongAndLat(1881, "12", "154"));
 //			System.out.println(Search.getInstance().getTempMax());
@@ -208,6 +208,21 @@ public class Controller implements Initializable {
 				if (deuxD.isSelected()) {
 					clearQuadriMesh();
 					clearHistoMesh();
+					sliderA.valueProperty().addListener(new ChangeListener<Number>() {
+						@Override
+						public void changed(ObservableValue<? extends Number> observableValue, Number oldValue,
+											Number newValue) {
+								textA.textProperty().setValue(String.valueOf(newValue.intValue()));
+						}
+					});
+				}
+			});
+			
+			sliderA.valueProperty().addListener(new ChangeListener<Number>() {
+				@Override
+				public void changed(ObservableValue<? extends Number> observableValue, Number oldValue,
+									Number newValue) {
+						textA.textProperty().setValue(String.valueOf(newValue.intValue()));
 				}
 			});
 
