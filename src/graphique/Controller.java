@@ -185,7 +185,7 @@ public class Controller implements Initializable {
 			MeshView[] meshViews = objImporter.getImport();
 			earth = new Group(meshViews);
 
-			//essaie pour le tutoriel permet de se reperer dans l espace 
+			//essaie pour le tutoriel, permet de se reperer dans l espace 
 			Group citys = new Group();
 			displayTown(citys, "Brest", 48.447911f, -4.418539f);
 			displayTown(citys, "Marseille", 43.43f, 5.21f);
@@ -203,7 +203,7 @@ public class Controller implements Initializable {
 			stop.addEventHandler(MouseEvent.MOUSE_CLICKED, this.stopButton());
 			pause.addEventHandler(MouseEvent.MOUSE_CLICKED, this.pauseButton());
 			
-			//la partie 2D n a pas ete achevee mais lorsque le bouton 2D est selectionne la spehe se nettoie comme voulu
+			//la partie 2D n a pas ete achevee mais lorsque le bouton 2D est selectionne la sphere se nettoie comme voulue 
 			deuxD.setOnAction(e -> {
 				if (deuxD.isSelected()) {
 					clearQuadriMesh();
@@ -261,7 +261,7 @@ public class Controller implements Initializable {
 			Group cameraGroup = new Group(camera);
 			root3D.getChildren().add(cameraGroup);
 
-			new CameraManager(camera, pane3D, root3D);
+			new CameraManager(camera, pane3D, root3D);  // permet à la sphere de tourner sur elle-meme avec la souris
 
 			// d ambient light
 			AmbientLight ambientLight = new AmbientLight(Color.WHITE);
@@ -281,7 +281,7 @@ public class Controller implements Initializable {
 
 	}
 
-	
+	//fonction fournie mais legerement modifiee, notamment pour la couleur du trait
 	public static Cylinder createLine(Point3D origin, Point3D target, PhongMaterial color) {
 		Point3D yAxis = new Point3D(0, 1, 0);
 		Point3D diff = target.subtract(origin);
@@ -304,19 +304,22 @@ public class Controller implements Initializable {
 
 	private void drawQuadrilateral(Group parent) {
 
+		//on recupere la valeur de l'annee que l'utilisateur veut
 		int anneeCourante = (int) sliderA.getValue();
 		
+		//on decoupe la sphere en 4 par 4 degres
 		for (int lat = -88; lat < 90; lat = lat + 4) {
 
 			for (int lon = -178; lon < 180; lon = lon + 4) {
 				
-				float res = Search.getInstance().findByYearAndByLongAndLat(anneeCourante, String.valueOf(lat),
-						Integer.toString(lon));
+				//on recupere la valeur du fichier csv
+				float res = Search.getInstance().findByYearAndByLongAndLat(anneeCourante, String.valueOf(lat),Integer.toString(lon));
 				Point3D bottomLeft = geoCoordTo3dCoord(lat - 2, lon - 2, 1.05f);
 				Point3D bottomRight = geoCoordTo3dCoord(lat - 2, lon + 2, 1.05f);
 				Point3D topLeft = geoCoordTo3dCoord(lat + 2, lon - 2, 1.05f);
 				Point3D topRight = geoCoordTo3dCoord(lat + 2, lon + 2, 1.05f);
-
+				
+				//on la compare et on lui attribue une zone geo et une couleur
 				if (res> 8f) {
 					AddQuadrilateral(parent, topRight, bottomRight, bottomLeft, topLeft, darkred);
 				} else if (res > 6f
@@ -367,6 +370,8 @@ public class Controller implements Initializable {
 	//fonction qui dessine les histogrammes en creant des lignes entre les points
 	private void drawHisto(Group parent) {
 		Point3D origin = new Point3D(0, 0, 0);
+		
+		//meme schema que pour les quadrillages
 		int anneeCourante = (int) sliderA.getValue();
 		
 		for (int lat = -88; lat < 90; lat = lat + 4) {
@@ -435,7 +440,6 @@ public class Controller implements Initializable {
 		parent.getChildren().addAll(city);
 	}
 
-	
 	private void AddQuadrilateral(Group parent, Point3D topRight, Point3D bottomRight, Point3D bottomLeft,
 			Point3D topLeft, PhongMaterial red) {
 		final TriangleMesh triangleMesh = new TriangleMesh();
@@ -455,7 +459,7 @@ public class Controller implements Initializable {
 		earthMeshViews.add(meshView);
 	}
 
-	//arrete le slider et permet de reprendre apres la timeline ou on s etait arrete juste avant 
+	//arrete le slider et permet de reprendre apres, la timeline ou on s etait arrete juste avant 
 	private EventHandler<Event> pauseButton() {
 		return event -> {
 			isStop = !isStop;

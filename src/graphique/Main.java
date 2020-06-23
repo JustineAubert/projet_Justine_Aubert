@@ -18,7 +18,7 @@ public class Main extends Application {
 		try {
 			Parse.getDataFromCSVFile("data/tempanomaly_4x4grid.csv");
 			Parent content = FXMLLoader.load(getClass().getResource("app.fxml"));
-			primaryStage.setTitle("Temperature Anomaly");
+			primaryStage.setTitle("Global Warning 3D");
 			
 			primaryStage.setScene(new Scene(content));
 			primaryStage.show();
