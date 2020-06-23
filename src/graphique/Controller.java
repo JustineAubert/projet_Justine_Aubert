@@ -198,7 +198,7 @@ public class Controller implements Initializable {
 
 			root3D.getChildren().addAll(citys);
 			
-			//commande pour les buttons play stop pause
+			//commandes pour les buttons play stop pause
 			play.addEventHandler(MouseEvent.MOUSE_CLICKED, this.startButton());
 			stop.addEventHandler(MouseEvent.MOUSE_CLICKED, this.stopButton());
 			pause.addEventHandler(MouseEvent.MOUSE_CLICKED, this.pauseButton());
